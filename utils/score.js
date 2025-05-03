@@ -37,16 +37,19 @@ function pointsFromAfternoon(receipt) {
     return (hour === 14 || (hour === 15 && minute === 0)) ? 10 : 0;
 }
 
+// 👇 NEW: Clean orchestration using a rules array
+const pointRules = [
+    pointsFromRetailer,
+    pointsFromRoundTotal,
+    pointsFromQuarterTotal,
+    pointsFromItemPairs,
+    pointsFromItemDescriptions,
+    pointsFromOddDay,
+    pointsFromAfternoon
+];
+
 function calculatePoints(receipt) {
-    return (
-        pointsFromRetailer(receipt) +
-        pointsFromRoundTotal(receipt) +
-        pointsFromQuarterTotal(receipt) +
-        pointsFromItemPairs(receipt) +
-        pointsFromItemDescriptions(receipt) +
-        pointsFromOddDay(receipt) +
-        pointsFromAfternoon(receipt)
-    );
+    return pointRules.reduce((total, rule) => total + rule(receipt), 0);
 }
 
 module.exports = { calculatePoints };
