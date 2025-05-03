@@ -9,6 +9,7 @@ This project implements a simple RESTful API to process receipts and calculate p
 - Node.js
 - Express.js
 - Thunder Client (for API testing)
+- Custom receipt scoring logic in `utils/calculatePoints.js`
 
 ---
 
